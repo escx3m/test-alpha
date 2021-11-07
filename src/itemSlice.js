@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const getText = 'https://animechan.vercel.app/api/quotes';
 const getImage = 'http://shibe.online/api/shibes?count=10&urls=true&httpsUrls=true';
-const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/';
+const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/'; // url proxy для локального разворота
 
 
 export const itemSlice = createSlice({
@@ -40,12 +40,14 @@ export const getFirstData = state => dispatch => {
 
     axios({
         method: 'get',
-        url: PROXY_URL + getImage
+        // url: PROXY_URL + getImage // для локального разворота
+        url: getImage
     }).then(responseImage => {
         image = responseImage;
         axios({
             method: 'get',
-            url: PROXY_URL + getText
+            // url: PROXY_URL + getText // для локального разворота
+            url: getText
         }).then(responseText => {
             text = responseText;
             let result = text.data.map((item, index) => {
