@@ -19,7 +19,7 @@ function CardGrid() {
     useEffect(() => [dogs]);
 
     return (
-        <Row xs={1} md={2} lg={4} className="g-4">
+        <Row xs={1} sm={2} lg={4} className="g-4 allCards">
             {(dogs && dogs.length > 0) && dogs.map((item, idx) => {
                 const cardRender = (
                     <Col key={idx}>

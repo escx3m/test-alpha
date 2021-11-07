@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
-
 const getText = 'https://animechan.vercel.app/api/quotes';
-const getImage = 'http://shibe.online/api/shibes?count=10&urls=true&httpsUrls=true';
-const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/'; // url proxy для локального разворота
+const getImage = 'https://shibe.online/api/shibes?count=10&urls=true&httpsUrls=true';
+const PROXY_URL = 'https://cors-anywhere.herokuapp.com/'; // url proxy для локального разворота
 
 
 export const itemSlice = createSlice({
@@ -38,22 +37,24 @@ export const getFirstData = state => dispatch => {
     let image = null;
     let text = null;
 
-    axios({
-        method: 'get',
-        // url: PROXY_URL + getImage // для локального разворота
-        url: getImage
+    axios.get(PROXY_URL + getImage, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
     }).then(responseImage => {
-        image = responseImage;
-        axios({
-            method: 'get',
-            // url: PROXY_URL + getText // для локального разворота
-            url: getText
+        image = responseImage.data;
+
+        axios.get(PROXY_URL + getText, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            }
         }).then(responseText => {
-            text = responseText;
-            let result = text.data.map((item, index) => {
-                return { ...item, img: image.data[index], isLiked: false }
+            text = responseText.data;
+
+            let result = text.map((item, index) => {
+                return { ...item, img: image[index], isLiked: false }
             })
-            dispatch(setData(result))
+            dispatch(setData(result));
         })
     })
 };

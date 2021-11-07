@@ -4,6 +4,10 @@
     padding: 50px 0 0 0;
 }
 
+.allCards {
+    padding-bottom: 32px;
+}
+
 .cardContent {
     max-width: 300px;
     width: 98%;
@@ -11,6 +15,7 @@
 
 .cardImg {
     height: 300px;
+    object-fit: cover;
 }
 
 .cardText {
@@ -57,4 +62,14 @@
 
 .badgeFilter {
     font-size: 18px !important;
+}
+
+@media (min-width: 320px) and (max-width: 575px) {
+    .cardContent {
+        margin: auto;
+    }
+
+    .blockFilter {
+        padding: 30px 0 30px 60px;
+    }
 }
